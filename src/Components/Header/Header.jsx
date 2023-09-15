@@ -6,13 +6,19 @@ import { BsCurrencyDollar, BsBook } from "react-icons/bs";
 
 const Header = () => {
   const [cards, setCards] = useState([]);
+  const [selectedCard, setSelectedCard] = useState([]);
 
   useEffect(() => {
     fetch("course.json")
       .then((res) => res.json())
       .then((data) => setCards(data));
   }, []);
-  console.log(cards);
+
+  const handleSelectCard = (card) => {
+    setSelectedCard([...selectedCard, card]);
+  };
+
+  console.log(selectedCard);
   return (
     <div>
       <div className="text-4xl font-bold text-center my-6">
@@ -40,7 +46,10 @@ const Header = () => {
                   <span>Credit : {card.Credit} </span>
                 </div>
                 <div className="card-actions">
-                  <button className="w-[280px] h-[40px] rounded-[8px] text-white bg-[#2F80ED]">
+                  <button
+                    onClick={() => handleSelectCard(card)}
+                    className="w-[280px] h-[40px] rounded-[8px] text-white bg-[#2F80ED]"
+                  >
                     Select
                   </button>
                 </div>
