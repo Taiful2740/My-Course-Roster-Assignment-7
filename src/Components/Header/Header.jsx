@@ -3,10 +3,15 @@
 import React, { useEffect, useState } from "react";
 import Card from "../Card/Card";
 import { BsCurrencyDollar, BsBook } from "react-icons/bs";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Header = () => {
   const [cards, setCards] = useState([]);
   const [selectedCard, setSelectedCard] = useState([]);
+  const [remaining, setRemaining] = useState(0);
+  const [totalCredit, setTotalCredit] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
 
   useEffect(() => {
     fetch("course.json")
@@ -20,26 +25,42 @@ const Header = () => {
     let count = card.Credit;
 
     if (isExist) {
-      return alert("Already Selected");
+      return toast("Already Selected");
     } else {
       selectedCard.forEach((item) => {
         count = count + item.Credit;
       });
-      console.log(count);
-      setSelectedCard([...selectedCard, card]);
+
+      // total price count here
+      let totalCost = card.price;
+      selectedCard.forEach((total) => {
+        totalCost += total.price;
+      });
+      setTotalPrice(totalCost);
+
+      const totalRemainingCredit = 20 - count;
+
+      if (count > 20) {
+        return toast("Credit limit over");
+      } else {
+        setTotalCredit(count);
+        setRemaining(totalRemainingCredit);
+        setSelectedCard([...selectedCard, card]);
+      }
     }
   };
 
   console.log(selectedCard);
   return (
     <div>
+      <ToastContainer></ToastContainer>
       <div className="text-4xl font-bold text-center my-6">
         <h1>Course Registration</h1>
       </div>
       <div className="flex ">
         <div className="grid md:w-3/4 grid-cols-3 gap-6 mx-auto mb-10">
           {cards.map((card, idx) => (
-            <div key={idx} className="card bg-gray-200 shadow-xl">
+            <div key={idx} className="card bg-gray-100 shadow-xl">
               <figure className="px-4 pt-4">
                 <img src={card.cover} alt="img" className="rounded-xl" />
               </figure>
@@ -55,7 +76,7 @@ const Header = () => {
                   <span className="w-[20px] h-[20px]">
                     <BsBook></BsBook>
                   </span>
-                  <span>Credit : {card.Credit} </span>
+                  <span>Credit : {card.Credit}hr </span>
                 </div>
                 <div className="card-actions">
                   <button
@@ -69,7 +90,12 @@ const Header = () => {
             </div>
           ))}
         </div>
-        <Card selectedCard={selectedCard}></Card>
+        <Card
+          selectedCard={selectedCard}
+          remaining={remaining}
+          totalCredit={totalCredit}
+          totalPrice={totalPrice}
+        ></Card>
       </div>
     </div>
   );
