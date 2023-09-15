@@ -15,7 +15,19 @@ const Header = () => {
   }, []);
 
   const handleSelectCard = (card) => {
-    setSelectedCard([...selectedCard, card]);
+    const isExist = selectedCard.find((item) => item.id == card.id);
+
+    let count = card.Credit;
+
+    if (isExist) {
+      return alert("Already Selected");
+    } else {
+      selectedCard.forEach((item) => {
+        count = count + item.Credit;
+      });
+      console.log(count);
+      setSelectedCard([...selectedCard, card]);
+    }
   };
 
   console.log(selectedCard);
@@ -57,7 +69,7 @@ const Header = () => {
             </div>
           ))}
         </div>
-        <Card></Card>
+        <Card selectedCard={selectedCard}></Card>
       </div>
     </div>
   );
