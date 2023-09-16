@@ -57,7 +57,7 @@ const Header = () => {
       <div className="text-4xl font-bold text-center my-6">
         <h1>Course Registration</h1>
       </div>
-      <div className=" md:flex lg:flex ">
+      <div className="  lg:flex ">
         <div className="grid grid-cols-1 w-3/4  mx-auto mb-10 md:grid md:grid-cols-2 gap-6 lg:grid lg:grid-cols-3">
           {cards.map((card, idx) => (
             <div key={idx} className="card bg-gray-100 shadow-xl">
@@ -81,7 +81,7 @@ const Header = () => {
                 <div className="card-actions">
                   <button
                     onClick={() => handleSelectCard(card)}
-                    className="w-[280px] h-[40px] rounded-[8px] text-white bg-[#2F80ED] md:w-[200px] "
+                    className="w-[280px] h-[40px] rounded-[8px] text-white bg-[#2F80ED] md:w-[200px] lg:w-[280px]  "
                   >
                     Select
                   </button>
