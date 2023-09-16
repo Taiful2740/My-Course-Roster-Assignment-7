@@ -5,7 +5,7 @@ const Card = ({ selectedCard, remaining, totalCredit, totalPrice }) => {
   console.log(selectedCard);
 
   return (
-    <div className="card w-80 h-40 m-auto md:mt-0 ">
+    <div className="card w-80 h-40 m-auto md:mt-0 lg:mt-0">
       <div className="card-body  shadow-2xl rounded-xl ">
         <h1 className="text-center text-[18px] py-4 font-bold text-[#2F80ED] md:text-start md:font-semibold lg:text-left lg:font-extrabold">
           Credit Hour Remaining {remaining} hr
